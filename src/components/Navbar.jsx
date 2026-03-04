@@ -34,7 +34,7 @@ export default function FloatingNavbar() {
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-8">
-          {['Services', 'About', 'Contact'].map((item) => (
+          {['Services', 'About', 'Careers'].map((item) => (
             <Link 
               key={item} 
               href={`/${item.toLowerCase()}`} 
@@ -48,10 +48,10 @@ export default function FloatingNavbar() {
         {/* Action Button */}
         <div className="flex items-center gap-4">
           <Link
-            href="/audit"
+            href="/contact"
             className="hidden sm:block text-[10px] font-black uppercase tracking-widest px-5 py-2.5 rounded-full bg-white text-black hover:bg-teal-400 transition-all"
           >
-            Get Audit
+            Get in Touch
           </Link>
 
           {/* Mobile Toggle */}
