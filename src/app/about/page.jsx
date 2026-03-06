@@ -1,92 +1,214 @@
 "use client";
 
-import { motion } from 'framer-motion';
+import { useRef } from "react";
+import { motion, useScroll, useSpring } from "framer-motion";
+import Image from "next/image";
+
+// Consistency with your existing animation constants
+const appleEase = [0.16, 1, 0.3, 1];
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8 } }
+  visible: { 
+    opacity: 1, 
+    y: 0, 
+    transition: { duration: 0.8, ease: appleEase } 
+  }
+};
+
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.15 },
+  },
+};
+
+// Reusable Wavy Line Component (Maintains visual thread across pages)
+const WavyScrollLine = ({ targetRef }) => {
+  const { scrollYProgress } = useScroll({
+    target: targetRef,
+    offset: ["start center", "end center"],
+  });
+  const pathLength = useSpring(scrollYProgress, { stiffness: 60, damping: 20 });
+
+  return (
+    <div className="absolute inset-0 z-0 pointer-events-none flex justify-center overflow-hidden opacity-30 md:opacity-60">
+      <svg width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 100 100">
+        <path d="M50,0 C90,25 10,75 50,100" stroke="#10b981" strokeOpacity="0.1" strokeWidth="1" fill="none" vectorEffect="non-scaling-stroke" />
+        <motion.path d="M50,0 C90,25 10,75 50,100" stroke="url(#emeraldGradient)" strokeWidth="3" fill="none" vectorEffect="non-scaling-stroke" style={{ pathLength }} />
+        <defs>
+          <linearGradient id="emeraldGradient" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#34d399" />
+            <stop offset="50%" stopColor="#10b981" />
+            <stop offset="100%" stopColor="#059669" />
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+  );
 };
 
 export default function About() {
+  const valuesRef = useRef(null);
+
   return (
-    <div className="bg-[#050505] text-white py-32 px-6 overflow-hidden">
-      <div className="max-w-6xl mx-auto">
-        
-        {/* Header */}
+    <div className="bg-[#052824] text-[#1d1d1f] font-sans selection:bg-emerald-400/30 overflow-hidden">
+      
+      {/* ================= 1. HERO SECTION (Dark Mode) ================= */}
+      <section className="relative w-full min-h-[80vh] flex flex-col items-center justify-center text-center px-6 pt-32 lg:pt-40 pb-24 bg-[#052824] text-white">
+        {/* Subtle Background Elements */}
+        <div className="absolute inset-0 z-0 opacity-40">
+           <Image src="/bg.png" alt="Atmosphere" fill className="object-cover mix-blend-overlay" />
+        </div>
+
         <motion.div 
           initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={fadeInUp}
-          className="text-center mb-24"
+          animate="visible"
+          variants={staggerContainer}
+          className="relative z-10 max-w-5xl mx-auto"
         >
-          <span className="text-teal-500 font-mono tracking-tighter uppercase text-sm">/ Our Identity</span>
-          <h1 className="text-6xl md:text-8xl font-bold tracking-tight mt-6 mb-8">Who We Are</h1>
-          <div className="w-20 h-[1px] bg-teal-500/50 mx-auto" />
+          <motion.span variants={fadeInUp} className="text-emerald-400 text-xs font-bold uppercase tracking-[0.3em] mb-6 block">
+            Our Identity
+          </motion.span>
+          <motion.h1 variants={fadeInUp} className="text-5xl md:text-7xl lg:text-8xl font-semibold tracking-tighter leading-[1] mb-8">
+            Beyond the <br /> <span className="italic text-emerald-400">Technology.</span>
+          </motion.h1>
+          <motion.p variants={fadeInUp} className="text-xl md:text-2xl text-white/60 font-light max-w-2xl mx-auto leading-relaxed">
+            We are a collective of strategic businesspeople engineering predictable growth for global enterprise brands.
+          </motion.p>
         </motion.div>
+      </section>
 
-        {/* Core Content */}
-        <div className="grid md:grid-cols-2 gap-16 items-center mb-40">
-          <motion.div 
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-4xl font-bold text-white mb-6">The Business Core</h2>
-            <p className="text-gray-400 text-xl leading-relaxed mb-8">
-              We are not just coders or technicians—we are <span className="text-white italic">businesspeople.</span> 
-              We understand the journey from a simple idea to a goal of 10 million and beyond. 
-            </p>
-            <p className="text-gray-500 text-lg leading-relaxed">
-              We know that the path to success is built on clear agreements and the right connections. Every strategy we deploy is designed to move the needle on your bottom line.
-            </p>
-          </motion.div>
+      {/* ================= 2. THE CORE (Light Mode) ================= */}
+      <section className="bg-white py-32 px-6 md:px-12 relative z-30">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid lg:grid-cols-12 gap-16 items-center">
+            
+            <motion.div 
+              initial={{ opacity: 0, x: -40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1, ease: appleEase }}
+              className="lg:col-span-7"
+            >
+              <div className="flex items-center gap-4 mb-8">
+                <span className="w-12 h-[1px] bg-emerald-500/50" />
+                <span className="text-emerald-400 text-xs font-bold uppercase tracking-[0.2em]">The Business Core</span>
+              </div>
+              <h2 className="text-4xl md:text-6xl font-semibold tracking-tighter mb-8 leading-tight">
+                Not Just Coders. <br /> Business People First.
+              </h2>
+              <div className="space-y-6 text-xl text-gray-500 font-light leading-relaxed">
+                <p>
+                  We understand the journey from a simple idea to a goal of 10 million and beyond. 
+                  Technology is merely the vehicle; the destination is undeniable market authority.
+                </p>
+                <p>
+                  Real success is built on clear agreements, strong structure, and the right connections. 
+                  Every strategy we deploy is strictly designed to move the needle on your bottom line.
+                </p>
+              </div>
+            </motion.div>
+
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1, ease: appleEase }}
+              className="lg:col-span-5 relative aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl"
+            >
+              <Image 
+                src="/business-strat.jpg" // Replace with actual visual
+                alt="Strategy session"
+                fill
+                className="object-cover"
+              />
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* ================= 3. GLOBAL REACH (Dark Island) ================= */}
+      <section className="py-24 px-4 md:px-8 bg-white relative z-30">
+        <div className="max-w-7xl mx-auto bg-[#052824] rounded-[4rem] overflow-hidden relative shadow-2xl p-12 lg:p-24 text-center">
+          <div className="absolute inset-0 opacity-10">
+            <Image src="/ind-1.jpg" alt="Map" fill className="object-cover grayscale" />
+          </div>
           
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            className="relative p-12 border border-white/10 bg-white/[0.02] rounded-[3rem]"
-          >
-            <div className="absolute top-0 right-0 w-32 h-32 bg-teal-500/10 blur-[80px]" />
-            <h3 className="text-2xl font-semibold text-teal-400 mb-8 tracking-widest uppercase text-sm">Global Reach</h3>
-            <div className="flex flex-wrap gap-4">
-              {['Sweden', 'London', 'South Africa', 'USA', 'Singapore', 'Sri Lanka'].map(country => (
-                <span key={country} className="px-6 py-3 border border-white/10 text-white text-sm font-medium rounded-full bg-white/5 hover:bg-teal-500 hover:text-black transition-all cursor-default">
+          <div className="relative z-10">
+            <h3 className="text-emerald-400 text-xs font-bold uppercase tracking-[0.3em] mb-8">Our Global Footprint</h3>
+            <h2 className="text-3xl md:text-5xl font-semibold text-white mb-12 tracking-tighter max-w-3xl mx-auto">
+              Operating across continents to deliver localized dominance.
+            </h2>
+            
+            <div className="flex flex-wrap justify-center gap-3">
+              {['Sweden', 'London', 'South Africa', 'USA', 'Singapore', 'Sri Lanka'].map((country) => (
+                <span 
+                  key={country}
+                  className="px-6 py-3 border border-white/10 rounded-full text-white/80 text-sm font-medium bg-white/5 backdrop-blur-sm hover:border-emerald-500 hover:text-emerald-400 transition-all duration-300"
+                >
                   {country}
                 </span>
               ))}
             </div>
-          </motion.div>
+          </div>
         </div>
+      </section>
 
-        {/* Values Section */}
-        <section className="mb-24">
-          <h2 className="text-4xl font-bold text-center mb-16">What We Stand For</h2>
+      {/* ================= 4. VALUES (Light Mode + Wavy Line) ================= */}
+      <section ref={valuesRef} className="py-32 px-6 md:px-12 bg-[#FAFAFA] relative z-30 overflow-hidden">
+        <WavyScrollLine targetRef={valuesRef} />
+        
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="text-center mb-20">
+            <h2 className="text-5xl md:text-6xl font-semibold tracking-tighter">What We Stand For</h2>
+          </div>
+
           <div className="grid md:grid-cols-3 gap-8">
             {[
-              { title: "Simplicity Over Complexity", desc: "We never use 'tech-speak'. If the customer doesn't understand the value, we have failed. We deliver with the simplicity of a handshake." },
-              { title: "Security Through Structure", desc: "All our collaborations rest on a solid legal foundation. We protect the interests of ourselves and our partners. Nothing is left to chance." },
-              { title: "Focus on Results", desc: "We measure success in actual figures and millions of revenue, not in technical reports you can’t read." }
+              { 
+                title: "Simplicity Over Complexity", 
+                desc: "We never hide behind technical jargon. Everything we do is explained simply, ensuring you remain in control of your strategy." 
+              },
+              { 
+                title: "Security Through Structure", 
+                desc: "All our collaborations rest on solid legal foundations. Our agreements are designed to protect both our partners and ourselves." 
+              },
+              { 
+                title: "Focus on Results", 
+                desc: "We measure success in real outcomes: Visibility. Growth. Revenue. Not technical reports or vanity metrics." 
+              }
             ].map((value, i) => (
               <motion.div 
                 key={i}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1 }}
                 viewport={{ once: true }}
-                className="p-10 rounded-[2rem] border border-white/5 bg-white/[0.01] hover:bg-white/[0.04] hover:border-teal-500/40 transition-all group"
+                transition={{ duration: 0.8, delay: i * 0.15, ease: appleEase }}
+                className="p-10 rounded-[2.5rem] bg-white border border-gray-100 shadow-[0_10px_40px_rgba(0,0,0,0.03)] group hover:shadow-[0_20px_60px_rgba(0,0,0,0.06)] transition-all duration-500"
               >
-                <div className="w-12 h-12 rounded-full bg-teal-500/10 flex items-center justify-center text-teal-500 font-bold mb-6 group-hover:scale-110 transition-transform">
+                <div className="w-14 h-14 rounded-2xl bg-emerald-50 flex items-center justify-center text-emerald-600 font-bold text-xl mb-8 group-hover:scale-110 transition-transform">
                   0{i + 1}
                 </div>
-                <h3 className="text-xl font-bold text-white mb-4">{value.title}</h3>
-                <p className="text-gray-500 leading-relaxed text-sm">{value.desc}</p>
+                <h3 className="text-2xl font-semibold mb-4 tracking-tight">{value.title}</h3>
+                <p className="text-gray-500 leading-relaxed font-light text-lg">{value.desc}</p>
               </motion.div>
             ))}
           </div>
-        </section>
-      </div>
+        </div>
+      </section>
+
+      {/* ================= 5. FINAL SIGN-OFF ================= */}
+      <section className="py-32 px-6 bg-white text-center">
+        <div className="max-w-2xl mx-auto">
+          <p className="text-3xl md:text-4xl text-[#052824] font-light tracking-tight leading-relaxed italic">
+            "When someone searches for what you offer, your business should be the one they find."
+          </p>
+          <div className="w-20 h-1 bg-emerald-400 mx-auto mt-10 rounded-full" />
+        </div>
+      </section>
+
     </div>
   );
 }

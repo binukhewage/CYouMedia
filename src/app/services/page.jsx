@@ -1,89 +1,167 @@
 "use client";
 
-import { motion } from 'framer-motion';
+import { useRef } from "react";
+import { motion, useScroll, useSpring } from "framer-motion";
+import Image from "next/image";
+
+// Premium Easing Constants
+const appleEase = [0.16, 1, 0.3, 1];
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } }
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.8, ease: appleEase },
+  },
 };
 
-export default function Services() {
+// Consistent Wavy Line Component
+const WavyScrollLine = ({ targetRef }) => {
+  const { scrollYProgress } = useScroll({
+    target: targetRef,
+    offset: ["start center", "end center"],
+  });
+  const pathLength = useSpring(scrollYProgress, { stiffness: 60, damping: 20 });
+
   return (
-    <section className="bg-[#050505] text-white py-32 px-6 overflow-hidden">
-      <div className="max-w-6xl mx-auto">
+    <div className="absolute inset-0 z-0 pointer-events-none flex justify-center overflow-hidden opacity-30 md:opacity-60">
+      <svg width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 100 100">
+        <path d="M50,0 C90,25 10,75 50,100" stroke="#10b981" strokeOpacity="0.1" strokeWidth="1" fill="none" vectorEffect="non-scaling-stroke" />
+        <motion.path d="M50,0 C90,25 10,75 50,100" stroke="url(#emeraldGradient)" strokeWidth="3" fill="none" vectorEffect="non-scaling-stroke" style={{ pathLength }} />
+        <defs>
+          <linearGradient id="emeraldGradient" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#34d399" />
+            <stop offset="50%" stopColor="#10b981" />
+            <stop offset="100%" stopColor="#059669" />
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+  );
+};
+
+export default function ServicesPage() {
+  const scrollRef = useRef(null);
+
+  const services = [
+    {
+      id: "01",
+      title: "Market Expansion Strategy",
+      description: "We build the commercial bridge. From legal structuring to cross-border agreements, we pave the way for your business to enter new territories with absolute security.",
+      tags: ["Structural Integrity", "Legal Frameworks", "Partnerships"],
+      image: "/strat-expand.jpg", 
+      dark: false,
+    },
+    {
+      id: "02",
+      title: "CYouMedia AI Visibility",
+      description: "Leveraging our proprietary AI engine, we transform your digital footprint. Our goal: ensuring that when a customer searches, they find you first. Period.",
+      tags: ["Proprietary AI", "SEO Dominance", "Global Visibility"],
+      image: "/digital-vis.jpg",
+      dark: true,
+    },
+    {
+      id: "03",
+      title: "High-Level Networking",
+      description: "Access our elite network across London, Singapore, and Sweden. We connect you with stakeholders that open doors usually closed to the public.",
+      tags: ["Executive Access", "Global Hubs", "Capital Relations"],
+      image: "/networking.jpg",
+      dark: false,
+    },
+  ];
+
+  return (
+    <div className="bg-[#052824] text-[#1d1d1f] font-sans selection:bg-emerald-400/30 overflow-hidden">
+      
+      {/* ================= 1. HERO SECTION (Centered Heading) ================= */}
+      <section className="relative w-full py-32 lg:py-48 bg-[#052824] text-white overflow-hidden flex flex-col items-center text-center">
+        <div className="absolute inset-0 z-0 opacity-20">
+          <Image src="/bg.png" alt="Background" fill className="object-cover mix-blend-overlay" priority />
+        </div>
         
-        {/* Header Section */}
-        <motion.div 
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={fadeInUp}
-          className="text-center mb-24"
-        >
-          <span className="text-teal-500 font-mono tracking-tighter uppercase text-sm">/ Our Purpose</span>
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tight mt-6 mb-8">What We Do</h1>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed">
-            We ensure business growth through <span className="text-white">two distinct, high-impact paths.</span>
-          </p>
-        </motion.div>
-
-        {/* Services Grid */}
-        <div className="grid md:grid-cols-2 gap-8 mb-24">
-          
-          {/* Service 1: Strategic Expansion */}
-          <motion.div 
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="group relative p-10 bg-white/[0.02] border border-white/10 rounded-[2.5rem] hover:border-teal-500/30 transition-all duration-500"
-          >
-            <div className="absolute top-0 right-0 w-40 h-40 bg-teal-500/5 blur-[80px] group-hover:bg-teal-500/10 transition-all" />
-            <h2 className="text-3xl font-bold text-white mb-6 relative z-10">Strategic Expansion</h2>
-            <p className="text-gray-400 text-lg leading-relaxed relative z-10">
-              We create the legal and commercial foundations necessary for growth. Built on the same frameworks that scaled global giants, ensuring a secure environment where your business can thrive.
-            </p>
-          </motion.div>
-
-          {/* Service 2: Digital Presence */}
-          <motion.div 
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="group relative p-10 bg-white/[0.02] border border-teal-500/20 rounded-[2.5rem] shadow-[0_0_40px_rgba(20,184,166,0.03)] hover:border-teal-500/50 transition-all duration-500"
-          >
-            <div className="absolute top-0 left-0 w-40 h-40 bg-teal-500/10 blur-[80px] group-hover:bg-teal-500/20 transition-all" />
-            <h2 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-white mb-6 relative z-10">
-              Digital Presence
-            </h2>
-            <p className="text-gray-400 text-lg leading-relaxed relative z-10">
-              Powered by our proprietary AI platform, we ensure you are found. Developed by experts with backgrounds from pioneering projects like <span className="text-teal-400/80">Swish, App ID, and Spotify.</span>
-            </p>
+        <div className="relative z-10 max-w-7xl mx-auto px-6">
+          <motion.div initial="hidden" animate="visible" variants={{ visible: { transition: { staggerChildren: 0.1 } } }}>
+            <motion.span variants={fadeInUp} className="text-emerald-400 text-xs font-bold uppercase tracking-[0.3em] mb-6 block">
+              Our Expertise
+            </motion.span>
+            <motion.h1 variants={fadeInUp} className="text-6xl md:text-8xl font-semibold tracking-tighter leading-[0.9] mb-8">
+              From Vision  <br /> <span className="text-emerald-400 italic">to Global Impact.</span>
+            </motion.h1>
+            <motion.p variants={fadeInUp} className="text-xl md:text-2xl text-white/60 font-light max-w-2xl mx-auto leading-relaxed">
+              We provide the legal structure, the AI technology, and the global connections. You focus on the vision.
+            </motion.p>
           </motion.div>
         </div>
+      </section>
 
-        {/* The Choice - Bottom Banner */}
-        <motion.div 
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="relative p-12 md:p-20 border border-white/5 bg-gradient-to-b from-white/[0.03] to-transparent text-center rounded-[3rem] overflow-hidden"
-        >
-          {/* Decorative Glow */}
-          <div className="absolute -bottom-20 left-1/2 -translate-x-1/2 w-full h-40 bg-teal-500/10 blur-[100px] -z-10" />
-          
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-8 tracking-tight">The Choice is Clear.</h2>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto mb-12 leading-relaxed">
-            When you realize that your growth requires both the world’s best technology and the world’s simplest execution, you realize there is no alternative. <span className="text-white">CYouMedia is the only option.</span>
-          </p>
-          
-          <div className="text-2xl md:text-3xl font-medium text-teal-500 italic tracking-tight">
-            "If you exist, you are seen."
+      {/* ================= 2. THE SERVICES LOOP (Rounded Edge Start) ================= */}
+      <section ref={scrollRef} className="relative bg-white rounded-t-[3rem] lg:rounded-t-[5rem] -mt-12 z-20 overflow-hidden">
+        {services.map((service, index) => (
+          <div 
+            key={service.id}
+            className={`py-24 md:py-32 px-6 relative overflow-hidden ${service.dark ? 'bg-[#052824] text-white' : 'bg-white text-[#1d1d1f]'}`}
+          >
+            {/* The Wavy Line Threading through individual sections */}
+            {index !== services.length - 1 && <WavyScrollLine targetRef={scrollRef} />}
+
+            <div className="max-w-7xl mx-auto relative z-10">
+              <div className={`grid lg:grid-cols-12 gap-16 items-center ${index % 2 !== 0 ? 'lg:flex-row-reverse' : ''}`}>
+                
+                {/* Content Block */}
+                <motion.div 
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 1, ease: appleEase }}
+                  className={`lg:col-span-6 ${index % 2 !== 0 ? 'lg:order-2' : ''}`}
+                >
+                  <div className="flex items-center gap-4 mb-8">
+                    <span className="text-emerald-500 font-mono text-xl">[{service.id}]</span>
+                    <div className={`h-px w-12 ${service.dark ? 'bg-white/20' : 'bg-black/10'}`} />
+                  </div>
+                  
+                  <h2 className="text-4xl md:text-6xl font-semibold tracking-tighter mb-8 leading-tight">
+                    {service.title}
+                  </h2>
+                  <p className={`text-xl md:text-2xl font-light leading-relaxed mb-10 ${service.dark ? 'text-white/60' : 'text-gray-500'}`}>
+                    {service.description}
+                  </p>
+                  
+                  <div className="flex flex-wrap gap-3">
+                    {service.tags.map(tag => (
+                      <span key={tag} className={`px-5 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest border ${service.dark ? 'border-white/10 bg-white/5 text-emerald-400' : 'border-emerald-100 bg-emerald-50/50 text-emerald-700'}`}>
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </motion.div>
+
+                {/* Visual Block */}
+                <motion.div 
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 1, ease: appleEase }}
+                  className={`lg:col-span-6 ${index % 2 !== 0 ? 'lg:order-1' : ''}`}
+                >
+                  <div className={`relative aspect-[4/3] rounded-[3rem] overflow-hidden shadow-2xl group border ${service.dark ? 'border-white/5' : 'border-gray-100'}`}>
+                    {/* Ambient Glow for Dark Sections */}
+                    {service.dark && <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 blur-[80px] rounded-full" />}
+                    
+                    <div className={`w-full h-full ${service.dark ? 'bg-[#0a352f]' : 'bg-gray-50'} flex items-center justify-center relative overflow-hidden`}>
+                       {/* This is where your actual Service Images go */}
+                       <span className="text-emerald-500/10 font-bold text-[15rem] absolute select-none">{service.id}</span>
+                       <div className="relative z-10 w-4/5 h-4/5 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 shadow-inner" />
+                    </div>
+                  </div>
+                </motion.div>
+
+              </div>
+            </div>
           </div>
-        </motion.div>
-
-      </div>
-    </section>
+        ))}
+      </section>
+    </div>
   );
 }

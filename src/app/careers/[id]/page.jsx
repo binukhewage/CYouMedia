@@ -1,119 +1,136 @@
 "use client";
 
-import { motion } from 'framer-motion';
-import Link from 'next/link';
-import { notFound } from 'next/navigation';
-import { use } from 'react';
-import Navbar from '@/components/Navbar'; 
-import Footer from '@/components/Footer'; 
+import { useRef } from "react";
+import { motion, useScroll, useSpring } from "framer-motion";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { use } from "react"; 
 import { careersData } from '@/data/careers';
 
+const appleEase = [0.16, 1, 0.3, 1];
+
 export default function JobDetails({ params }) {
-  // Unwrap params using React.use() for Next.js 15+ compatibility
   const resolvedParams = use(params);
-  
-  // Find the specific job from our data array based on the URL parameter
   const job = careersData.find(j => j.id === resolvedParams.id);
 
-  if (!job) {
-    return notFound(); // Shows 404 if the URL doesn't match an ID in careers.js
-  }
+  if (!job) return notFound();
 
   return (
-    <div className="bg-[#050505] text-white selection:bg-teal-500/30 min-h-screen flex flex-col">
-      <Navbar />
+    <div className="bg-white text-[#1d1d1f] font-sans selection:bg-emerald-100 overflow-hidden min-h-screen">
       
-      <main className="flex-grow overflow-hidden pt-32 pb-24">
-        <section className="max-w-4xl mx-auto px-6 relative">
-          {/* Ambient Glow */}
-          <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-teal-500/5 blur-[100px] rounded-full -z-10" />
-
-          {/* Back Button */}
-          <Link href="/careers" className="inline-flex items-center text-sm font-bold uppercase tracking-widest text-gray-500 hover:text-white mb-10 transition-colors">
-            ← Back to Careers
-          </Link>
-
+      {/* ================= 1. THE HEADER (Pure Clarity) ================= */}
+      <header className="pt-32 pb-16 px-6 border-b border-gray-100">
+        <div className="max-w-5xl mx-auto">
           <motion.div 
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="border-b border-white/10 pb-10 mb-12"
+            transition={{ duration: 0.8, ease: appleEase }}
           >
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">{job.title}</h1>
-            <div className="flex flex-wrap gap-3 text-xs font-bold uppercase tracking-widest text-gray-400">
-              <span className="px-4 py-2 rounded-full bg-white/5 border border-white/10">{job.location}</span>
-              <span className="px-4 py-2 rounded-full bg-teal-500/10 text-teal-400 border border-teal-500/20">{job.type}</span>
-              <span className="px-4 py-2 rounded-full bg-white/5 border border-white/10">{job.salary}</span>
+            <Link href="/careers" className="text-gray-400 text-xs font-bold uppercase tracking-widest hover:text-emerald-600 transition-colors mb-12 block">
+              ← All Positions
+            </Link>
+            
+            <h1 className="text-5xl md:text-7xl font-semibold tracking-tighter mb-8 text-[#052824]">
+              {job.title}
+            </h1>
+
+            <div className="flex flex-wrap gap-6 text-sm font-medium text-gray-400">
+              <span className="flex items-center gap-2">
+                <div className="w-1 h-1 bg-emerald-500 rounded-full" /> {job.location}
+              </span>
+              <span className="flex items-center gap-2">
+                <div className="w-1 h-1 bg-emerald-500 rounded-full" /> {job.type}
+              </span>
+              <span className="flex items-center gap-2">
+                <div className="w-1 h-1 bg-emerald-500 rounded-full" /> {job.salary}
+              </span>
             </div>
           </motion.div>
+        </div>
+      </header>
 
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="space-y-12 text-gray-300"
-          >
-            {/* About */}
-            <div>
-              <h2 className="text-sm font-bold text-white uppercase tracking-widest mb-4 flex items-center gap-3">
-                <div className="w-2 h-2 bg-teal-500 rounded-full" /> About The Role
-              </h2>
-              <p className="leading-relaxed text-lg">{job.about}</p>
-            </div>
-
-            {/* Grid Layout for Responsibilities & Requirements */}
-            <div className="grid md:grid-cols-2 gap-12">
+      {/* ================= 2. THE CONTENT (The Editorial Grid) ================= */}
+      <main className="py-24 px-6">
+        <div className="max-w-5xl mx-auto">
+          <div className="grid lg:grid-cols-12 gap-16">
+            
+            {/* Sidebar info (Sticky) */}
+            <aside className="lg:col-span-4 lg:sticky lg:top-32 h-fit space-y-12">
               <div>
-                <h2 className="text-sm font-bold text-white uppercase tracking-widest mb-6 flex items-center gap-3">
-                  <div className="w-2 h-2 bg-teal-500 rounded-full" /> What You'll Do
-                </h2>
-                <ul className="space-y-4 pl-5 border-l border-white/10">
-                  {job.responsibilities.map((item, i) => (
-                    <li key={i} className="relative before:content-[''] before:absolute before:-left-[21px] before:top-2.5 before:w-2 before:h-[1px] before:bg-teal-500">
-                      {item}
-                    </li>
-                  ))}
-                </ul>
+                <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] text-emerald-600 mb-4">Department</h4>
+                <p className="text-lg font-medium text-[#052824]">{job.department || "Operations"}</p>
               </div>
-
               <div>
-                <h2 className="text-sm font-bold text-white uppercase tracking-widest mb-6 flex items-center gap-3">
-                  <div className="w-2 h-2 bg-teal-500 rounded-full" /> Who You Are
-                </h2>
-                <ul className="space-y-4 pl-5 border-l border-white/10">
-                  {job.requirements.map((item, i) => (
-                    <li key={i} className="relative before:content-[''] before:absolute before:-left-[21px] before:top-2.5 before:w-2 before:h-[1px] before:bg-teal-500">
-                      {item}
-                    </li>
-                  ))}
-                </ul>
+                <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] text-emerald-600 mb-4">Posted</h4>
+                <p className="text-lg font-medium text-[#052824]">March 2026</p>
               </div>
-            </div>
+              <div className="pt-8 border-t border-gray-100">
+                 <p className="text-sm text-gray-400 leading-relaxed">
+                   CYouMedia is an equal opportunity employer. We value diversity and structured results.
+                 </p>
+              </div>
+            </aside>
 
-            {/* Benefits & CTA */}
-            <div className="bg-[#0a0a0a] border border-white/10 rounded-3xl p-8 md:p-10 mt-12">
-              <h2 className="text-sm font-bold text-white uppercase tracking-widest mb-6 flex items-center gap-3">
-                <div className="w-2 h-2 bg-teal-500 rounded-full" /> What We Offer
-              </h2>
-              <ul className="grid sm:grid-cols-2 gap-4 mb-10">
-                {job.benefits.map((item, i) => (
-                  <li key={i} className="flex items-start gap-3 text-sm text-gray-400">
-                    <span className="text-teal-500">✓</span> {item}
-                  </li>
-                ))}
-              </ul>
+            {/* Main Job Body */}
+            <div className="lg:col-span-8 space-y-24">
               
-              <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row gap-4 items-center">
-                <Link href="mailto:careers@cyoumedia.com" className="w-full sm:w-auto px-8 py-4 bg-teal-500 text-black rounded-full text-sm font-bold uppercase tracking-widest hover:bg-teal-400 transition-all text-center">
-                  Email Application
-                </Link>
-                <Link href="https://wa.me/94700000000" target="_blank" className="w-full sm:w-auto px-8 py-4 bg-white/5 border border-white/10 text-white rounded-full text-sm font-bold uppercase tracking-widest hover:bg-white/10 transition-all text-center">
-                  WhatsApp Us
-                </Link>
-              </div>
+              {/* About Section */}
+              <section>
+                <h3 className="text-xs font-bold uppercase tracking-widest text-gray-300 mb-8">The Role</h3>
+                <p className="text-2xl md:text-3xl font-light leading-snug text-gray-600">
+                  {job.about}
+                </p>
+              </section>
+
+              {/* Responsibilities */}
+              <section className="space-y-10">
+                <h3 className="text-xs font-bold uppercase tracking-widest text-gray-300">Responsibilities</h3>
+                <div className="space-y-8">
+                  {job.responsibilities.map((item, i) => (
+                    <div key={i} className="group flex gap-6 items-start">
+                      <span className="text-emerald-500 font-mono text-xs mt-1.5 opacity-50">0{i+1}</span>
+                      <p className="text-lg text-gray-600 font-light leading-relaxed">{item}</p>
+                    </div>
+                  ))}
+                </div>
+              </section>
+
+              {/* Requirements */}
+              <section className="space-y-10">
+                <h3 className="text-xs font-bold uppercase tracking-widest text-gray-300">Requirements</h3>
+                <div className="space-y-8">
+                  {job.requirements.map((item, i) => (
+                    <div key={i} className="flex gap-6 items-start">
+                      <span className="text-emerald-300 mt-1.5">•</span>
+                      <p className="text-lg text-gray-600 font-light leading-relaxed">{item}</p>
+                    </div>
+                  ))}
+                </div>
+              </section>
+
+              {/* Minimal CTA */}
+              <section className="pt-20 border-t border-gray-100">
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Link 
+                    href="mailto:careers@cyoumedia.com" 
+                    className="bg-[#052824] text-white px-10 py-5 rounded-full font-bold text-center hover:bg-emerald-900 transition-all active:scale-95"
+                  >
+                    Apply for this position
+                  </Link>
+                </div>
+              </section>
+
             </div>
-          </motion.div>
-        </section>
+          </div>
+        </div>
       </main>
+
+      {/* ================= 3. FOOTER (Subtle) ================= */}
+      <footer className="py-20 bg-[#FAFAFA] border-t border-gray-100 text-center">
+        <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-gray-300">
+          CYouMedia Architecture // 2026
+        </p>
+      </footer>
     </div>
   );
 }
