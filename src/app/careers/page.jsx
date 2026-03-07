@@ -64,23 +64,34 @@ export default function CareersList() {
             </p>
           </motion.div>
         </div>
-
-       
       </section>
 
-      {/* ================= 2. THE CULTURE STORY (Asymmetrical) ================= */}
+      {/* ================= 2. THE CULTURE STORY (Asymmetrical) - SWAPPED ================= */}
       <section className="relative bg-white text-[#1d1d1f] py-40 px-6 lg:px-12 rounded-t-[5rem] lg:rounded-t-[8rem] -mt-20 z-20">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-12 gap-24 items-start">
             
-            {/* Sticky Editorial Text */}
+            {/* Visual Montage (Now on the left) */}
+            <div className="lg:col-span-6 space-y-20">
+              <motion.div 
+                initial={{ opacity: 0, y: 100 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1, ease: appleEase }}
+                className="relative aspect-[4/5] rounded-[4rem] overflow-hidden shadow-2xl border-[15px] border-[#FAFAFA]"
+              >
+                <Image src="/lifeat.png" alt="Team" fill className="object-cover" />
+              </motion.div>
+            </div>
+
+            {/* Sticky Editorial Text (Now on the right) */}
             <div className="lg:col-span-6 lg:sticky lg:top-40">
               <div className="flex items-center gap-4 mb-8">
                 <span className="w-12 h-[1px] bg-emerald-500" />
                 <span className="text-emerald-500 text-xs font-bold uppercase tracking-[0.2em]">Our Manifesto</span>
               </div>
               <h2 className="text-6xl font-semibold tracking-tighter mb-10 leading-[1.05]">
-                Life inside the <br /> <span className="text-emerald-500">Growth Engine.</span>
+                Life inside the <br /> <span className="text-emerald-500">CYouMedia.</span>
               </h2>
               <div className="space-y-8 text-2xl text-gray-400 font-light leading-relaxed">
                 <p>
@@ -94,35 +105,6 @@ export default function CareersList() {
                   <span className="text-emerald-600 font-medium italic"> transparency is our default </span> 
                   and results are our only currency.
                 </p>
-              </div>
-            </div>
-
-            {/* Visual Montage */}
-            <div className="lg:col-span-6 space-y-20">
-              <motion.div 
-                initial={{ opacity: 0, y: 100 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1, ease: appleEase }}
-                className="relative aspect-[4/5] rounded-[4rem] overflow-hidden shadow-2xl border-[15px] border-[#FAFAFA]"
-              >
-                <Image src="/lifeat.png" alt="Team" fill className="object-cover" />
-              </motion.div>
-              
-              {/* Floating Pill Stats */}
-              <div className="grid grid-cols-2 gap-6">
-                {[
-                  { label: "Execution", val: "Predictable" },
-                  { label: "Environment", val: "Remote-First" },
-                ].map((stat, i) => (
-                  <motion.div 
-                    key={i}
-                    whileHover={{ scale: 1.05 }}
-                    className="p-10 rounded-[3rem] bg-[#052824] text-white flex flex-col justify-between aspect-square"
-                  >
-                    <span className="text-[10px] font-bold uppercase tracking-[0.3em] opacity-50">{stat.label}</span>
-                    <span className="text-3xl font-semibold leading-tight">{stat.val}</span>
-                  </motion.div>
-                ))}
               </div>
             </div>
 
@@ -168,9 +150,6 @@ export default function CareersList() {
           </div>
         </div>
       </section>
-
-      
-
     </div>
   );
 }

@@ -24,7 +24,7 @@ const staggerContainer = {
   },
 };
 
-// Reusable Wavy Line Component (Maintains visual thread across pages)
+// Reusable Wavy Line Component
 const WavyScrollLine = ({ targetRef }) => {
   const { scrollYProgress } = useScroll({
     target: targetRef,
@@ -56,32 +56,31 @@ export default function About() {
     <div className="bg-[#052824] text-[#1d1d1f] font-sans selection:bg-emerald-400/30 overflow-hidden">
       
       {/* ================= 1. HERO SECTION (Dark Mode) ================= */}
-      <section className="relative w-full min-h-[80vh] flex flex-col items-center justify-center text-center px-6 pt-32 lg:pt-40 pb-24 bg-[#052824] text-white">
-        {/* Subtle Background Elements */}
-        <div className="absolute inset-0 z-0 opacity-40">
+      <section className="relative w-full min-h-[80vh] flex flex-col items-center justify-center text-center px-6 pt-32 pb-40 bg-[#052824] text-white">
+        <div className="absolute inset-0 z-0 opacity-20">
            <Image src="/bg.png" alt="Atmosphere" fill className="object-cover mix-blend-overlay" />
         </div>
 
         <motion.div 
-          initial="hidden"
-          animate="visible"
-          variants={staggerContainer}
+          initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1.5, ease: appleEase }}
           className="relative z-10 max-w-5xl mx-auto"
         >
           <motion.span variants={fadeInUp} className="text-emerald-400 text-xs font-bold uppercase tracking-[0.3em] mb-6 block">
             Our Identity
           </motion.span>
-          <motion.h1 variants={fadeInUp} className="text-5xl md:text-7xl lg:text-8xl font-semibold tracking-tighter leading-[1] mb-8">
-            Beyond the <br /> <span className="italic text-emerald-400">Technology.</span>
+          <motion.h1 variants={fadeInUp} className="text-6xl md:text-8xl font-semibold tracking-tighter leading-[0.9] mb-8">
+            Story Behind <br /> <span className="italic text-emerald-400">CYouMedia.</span>
           </motion.h1>
-          <motion.p variants={fadeInUp} className="text-xl md:text-2xl text-white/60 font-light max-w-2xl mx-auto leading-relaxed">
+          <motion.p variants={fadeInUp} className="text-xl md:text-2xl text-white/50 font-light max-w-2xl mx-auto leading-relaxed">
             We are a collective of strategic businesspeople engineering predictable growth for global enterprise brands.
           </motion.p>
         </motion.div>
       </section>
 
-      {/* ================= 2. THE CORE (Light Mode) ================= */}
-      <section className="bg-white py-32 px-6 md:px-12 relative z-30">
+      {/* ================= 2. THE CORE (White Curved Overlay) ================= */}
+      <section className="bg-white py-32 px-6 md:px-12 relative z-30 rounded-t-[4rem] lg:rounded-t-[6rem] -mt-20">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-12 gap-16 items-center">
             
@@ -96,13 +95,13 @@ export default function About() {
                 <span className="w-12 h-[1px] bg-emerald-500/50" />
                 <span className="text-emerald-400 text-xs font-bold uppercase tracking-[0.2em]">The Business Core</span>
               </div>
-              <h2 className="text-4xl md:text-6xl font-semibold tracking-tighter mb-8 leading-tight">
+              <h2 className="text-5xl md:text-6xl font-semibold tracking-tighter mb-10 leading-[1.05] text-[#052824]">
                 Not Just Coders. <br /> Business People First.
               </h2>
-              <div className="space-y-6 text-xl text-gray-500 font-light leading-relaxed">
+              <div className="space-y-6 text-xl md:text-2xl text-gray-500 font-light leading-relaxed">
                 <p>
                   We understand the journey from a simple idea to a goal of 10 million and beyond. 
-                  Technology is merely the vehicle; the destination is undeniable market authority.
+                  Technology is merely the vehicle; the destination is <span className="text-[#052824] font-medium italic">undeniable market authority.</span>
                 </p>
                 <p>
                   Real success is built on clear agreements, strong structure, and the right connections. 
@@ -116,10 +115,10 @@ export default function About() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 1, ease: appleEase }}
-              className="lg:col-span-5 relative aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl"
+              className="lg:col-span-5 relative aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl border-[15px] border-[#FAFAFA]"
             >
               <Image 
-                src="/business-strat.jpg" // Replace with actual visual
+                src="/about1.png" 
                 alt="Strategy session"
                 fill
                 className="object-cover"
@@ -129,20 +128,25 @@ export default function About() {
         </div>
       </section>
 
-      {/* ================= 3. GLOBAL REACH (Dark Island) ================= */}
+      {/* ================= 3. GLOBAL REACH (Refined Split Island) ================= */}
       <section className="py-24 px-4 md:px-8 bg-white relative z-30">
-        <div className="max-w-7xl mx-auto bg-[#052824] rounded-[4rem] overflow-hidden relative shadow-2xl p-12 lg:p-24 text-center">
-          <div className="absolute inset-0 opacity-10">
-            <Image src="/ind-1.jpg" alt="Map" fill className="object-cover grayscale" />
-          </div>
+        <div className="max-w-7xl mx-auto bg-[#052824] rounded-[4rem] overflow-hidden relative shadow-2xl flex flex-col lg:flex-row min-h-[600px]">
           
-          <div className="relative z-10">
+          {/* Image Side */}
+          <div className="relative lg:w-1/2 min-h-[400px]">
+            <Image src="/mapcon.png" alt="Map" fill className="object-cover opacity-60" />
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-[#052824] hidden lg:block" />
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#052824] lg:hidden" />
+          </div>
+
+          {/* Content Side */}
+          <div className="lg:w-1/2 p-12 lg:p-24 flex flex-col justify-center text-center lg:text-left relative z-10">
             <h3 className="text-emerald-400 text-xs font-bold uppercase tracking-[0.3em] mb-8">Our Global Footprint</h3>
-            <h2 className="text-3xl md:text-5xl font-semibold text-white mb-12 tracking-tighter max-w-3xl mx-auto">
-              Operating across continents to deliver localized dominance.
+            <h2 className="text-3xl md:text-5xl font-semibold text-white mb-12 tracking-tighter leading-tight">
+              Operating across continents to deliver <span className="italic text-emerald-400">localized dominance.</span>
             </h2>
             
-            <div className="flex flex-wrap justify-center gap-3">
+            <div className="flex flex-wrap justify-center lg:justify-start gap-3">
               {['Sweden', 'London', 'South Africa', 'USA', 'Singapore', 'Sri Lanka'].map((country) => (
                 <span 
                   key={country}
@@ -198,17 +202,6 @@ export default function About() {
           </div>
         </div>
       </section>
-
-      {/* ================= 5. FINAL SIGN-OFF ================= */}
-      <section className="py-32 px-6 bg-white text-center">
-        <div className="max-w-2xl mx-auto">
-          <p className="text-3xl md:text-4xl text-[#052824] font-light tracking-tight leading-relaxed italic">
-            "When someone searches for what you offer, your business should be the one they find."
-          </p>
-          <div className="w-20 h-1 bg-emerald-400 mx-auto mt-10 rounded-full" />
-        </div>
-      </section>
-
     </div>
   );
 }

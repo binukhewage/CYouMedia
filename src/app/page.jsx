@@ -131,13 +131,12 @@ export default function Home() {
             variants={fadeInUp}
             className="text-white/80 text-base md:text-lg max-w-2xl mx-auto mb-8 font-light leading-relaxed"
           >
-            We simplify the way retailers access and offer prepaid services,
-            creating new revenue opportunities and fostering customer loyalty.
+            We help businesses become visible, connect globally, and grow through strategic expansion and digital presence.
           </motion.p>
 
           <motion.div variants={fadeInUp}>
             <button className="bg-white text-[#052824] px-8 py-3.5 rounded-full font-bold hover:bg-emerald-50 transition-all shadow-xl hover:scale-105">
-              Book Demo
+              Book a Consultation
             </button>
           </motion.div>
         </motion.div>
@@ -168,9 +167,9 @@ export default function Home() {
         <div className="hidden lg:block absolute inset-0 z-20 pointer-events-none">
           <motion.div
             animate={floatAnimation}
-            className="absolute left-[2%] lg:left-[10%] top-[50%] lg:top-[45%] bg-white text-black p-5 rounded-2xl shadow-2xl w-80 pointer-events-auto"
+            className="absolute left-[2%] lg:left-[10%] top-[50%] lg:top-[50%] bg-white text-black p-5 rounded-2xl shadow-2xl w-80 pointer-events-auto"
           >
-            <h4 className="font-bold text-lg mb-4">Payments Statistics</h4>
+            <h4 className="font-bold text-lg mb-4">Business Growth ↑ </h4>
 
             <div className="relative h-24 w-full flex items-end justify-between border-b border-gray-200 pb-2">
               <div className="absolute inset-0 bg-emerald-50/50 rounded-b-md" />
@@ -209,28 +208,24 @@ export default function Home() {
             <div className="flex justify-between items-start mb-2">
               <div>
                 <h4 className="font-bold text-sm text-gray-600">
-                  Active users
+                  Visibility for Every Business
                 </h4>
 
-                <div className="text-3xl font-bold text-[#052824]">10.8k</div>
+                <div className="text-xs font-bold text-[#052824]"></div>
               </div>
 
               <div className="bg-emerald-50 text-emerald-600 text-[10px] font-bold px-2 py-1 rounded-full">
-                ↑ 36%
+                #1
               </div>
             </div>
 
-            <div className="relative h-24 w-full mt-4 bg-gray-100 rounded-xl overflow-hidden flex items-center justify-center">
+            <div className="relative h-30 w-full mt-4 bg-gray-100 rounded-xl overflow-hidden flex items-center justify-center">
               <Image
-                src="/ind-1.jpg"
+                src="/herosmall.png"
                 alt="Map"
                 fill
-                className="object-cover opacity-20"
+                className="object-cover "
               />
-
-              <div className="bg-[#052824] text-white text-[10px] font-bold px-3 py-1.5 rounded-full z-10 shadow-lg">
-                Puttaparthi
-              </div>
             </div>
           </motion.div>
 
@@ -241,7 +236,7 @@ export default function Home() {
               y: [0, 10, 0],
               transition: { duration: 4, repeat: Infinity },
             }}
-            className="absolute left-[28%] top-[40%] w-16 h-16 rounded-2xl bg-emerald-500 p-2 shadow-xl rotate-12 pointer-events-auto"
+            className="absolute left-[28%] top-[45%] w-16 h-16 rounded-2xl bg-emerald-500 p-2 shadow-xl rotate-12 pointer-events-auto"
           >
             <div className="w-full h-full bg-emerald-300/50 rounded-xl" />
           </motion.div>
@@ -251,7 +246,7 @@ export default function Home() {
               y: [0, -12, 0],
               transition: { duration: 5.5, repeat: Infinity },
             }}
-            className="absolute left-[22%] bottom-[15%] w-20 h-20 rounded-2xl bg-white p-1 shadow-2xl -rotate-6 pointer-events-auto"
+            className="absolute left-[22%] bottom-[10%] w-20 h-20 rounded-2xl bg-white p-1 shadow-2xl -rotate-6 pointer-events-auto"
           >
             <div className="w-full h-full bg-gray-200 rounded-xl" />
           </motion.div>
@@ -315,7 +310,7 @@ export default function Home() {
                 We are a strategic partner combining business development with
                 digital visibility.{" "}
                 <span className="font-semibold">
-                  First and foremost, we are not coders or technicians — we are
+                  First and foremost, we are not coders or technicians - we are
                   businesspeople.
                 </span>
               </motion.div>
@@ -356,7 +351,7 @@ export default function Home() {
             src="/bg.png"
             alt="Global Reach Cityscape"
             fill
-            className="object-cover opacity-80"
+            className="object-cover opacity-40"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-[#052824]/90 via-[#052824]/30 to-[#052824]/90" />
         </div>
@@ -618,43 +613,45 @@ export default function Home() {
             </div>
 
             {/* Scrolling Rows Column */}
-            <div className="lg:col-span-7 space-y-6">
-              {[
-                {
-                  title: "Simplicity Over Complexity",
-                  text: "We never hide behind confusing technical language. Everything we do is explained in a way that normal people understand.",
-                },
-                {
-                  title: "Security Through Structure",
-                  text: "All our collaborations rest on solid legal foundations. Our agreements are designed to protect both our partners and ourselves.",
-                },
-                {
-                  title: "Focus on Results",
-                  text: "We measure success in real outcomes: Visibility. Growth. Revenue. Not technical reports or vanity metrics.",
-                },
-              ].map((policy, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, x: 40 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ duration: 0.8, delay: i * 0.15, ease: appleEase }}
-                  className="group bg-white/60 backdrop-blur-xl p-8 md:p-10 rounded-[2rem] border border-gray-100 hover:bg-white hover:shadow-[0_15px_40px_rgb(0,0,0,0.04)] transition-all duration-500 flex flex-col md:flex-row gap-6 md:gap-10 items-start"
-                >
-                  <div className="text-2xl font-mono font-bold text-emerald-500/30 group-hover:text-emerald-500 transition-colors duration-500 shrink-0 mt-1">
-                    0{i + 1}
-                  </div>
-                  <div>
-                    <h3 className="text-2xl font-semibold tracking-tight mb-3 text-[#1d1d1f]">
-                      {policy.title}
-                    </h3>
-                    <p className="text-gray-500 text-lg leading-relaxed font-light">
-                      {policy.text}
-                    </p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
+<div className="lg:col-span-7 space-y-6">
+  {[
+    {
+      title: "Simplicity Over Complexity",
+      text: "We never hide behind confusing technical language. Everything we do is explained in a way that normal people understand.",
+    },
+    {
+      title: "Security Through Structure",
+      text: "All our collaborations rest on solid legal foundations. Our agreements are designed to protect both our partners and ourselves.",
+    },
+    {
+      title: "Focus on Results",
+      text: "We measure success in real outcomes: Visibility. Growth. Revenue. Not technical reports or vanity metrics.",
+    },
+  ].map((policy, i) => (
+    <motion.div
+      key={i}
+      initial={{ opacity: 0, x: 40 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.8, delay: i * 0.15, ease: appleEase }}
+      className="group bg-white/60 backdrop-blur-xl p-8 md:p-10 rounded-[2rem] border-l-[6px] border-emerald-500 border-t border-r border-b border-emerald-500 hover:bg-white hover:shadow-[0_15px_40px_rgb(0,0,0,0.04)] transition-all duration-500 flex flex-col md:flex-row gap-6 md:gap-10 items-start"
+    >
+      {/* The number now sits next to the thick left border */}
+      <div className="text-2xl font-mono font-bold text-emerald-500/30 group-hover:text-emerald-500 transition-colors duration-500 shrink-0 mt-1">
+        0{i + 1}
+      </div>
+      
+      <div>
+        <h3 className="text-2xl font-semibold tracking-tight mb-3 text-[#1d1d1f]">
+          {policy.title}
+        </h3>
+        <p className="text-gray-500 text-lg leading-relaxed font-light">
+          {policy.text}
+        </p>
+      </div>
+    </motion.div>
+  ))}
+</div>
 
           </div>
         </div>
@@ -728,7 +725,7 @@ export default function Home() {
               className="mt-24 pt-10 border-t border-white/10 text-center"
             >
               <p className="text-2xl md:text-3xl text-emerald-100/40 font-light tracking-widest uppercase">
-                We are the bridge.
+               - CYouMedia is the only option -
               </p>
             </motion.div>
 

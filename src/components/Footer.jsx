@@ -2,13 +2,13 @@ import Link from 'next/link';
 
 export default function Footer() {
   return (
-    <footer className="relative w-full bg-[#031A17] border-t border-white/10 pt-24 pb-8 overflow-hidden z-10">
+    <footer className="relative w-full bg-[#031A17] border-t border-white/10 pt-24 overflow-hidden z-10 flex flex-col">
       
       {/* Subtle Ambient Emerald Glow centered in the background */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-emerald-500/10 blur-[120px] rounded-full pointer-events-none" />
 
       {/* Centered Content Container */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 w-full">
         
         {/* Main Footer Links Grid */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
@@ -75,8 +75,16 @@ export default function Footer() {
             ))}
           </div>
         </div>
-        
       </div>
+
+      {/* ================= MASSIVE WATERMARK ================= */}
+      <div className="w-full flex justify-center items-end mt-12 md:mt-20 pointer-events-none select-none">
+        {/* Viewport Width (vw) sizing ensures it perfectly spans the screen across all devices */}
+        <h1 className="text-[16vw] lg:text-[13vw] font-black leading-[0.75] tracking-tighter text-white/[0.03] uppercase whitespace-nowrap">
+          CYouMedia
+        </h1>
+      </div>
+        
     </footer>
   );
 }
