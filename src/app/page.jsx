@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { motion, useScroll, useSpring } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 
 // Premium Entry Animations
 const fadeInUp = {
@@ -135,10 +136,13 @@ export default function Home() {
           </motion.p>
 
           <motion.div variants={fadeInUp}>
-            <button className="bg-white text-[#052824] px-8 py-3.5 rounded-full font-bold hover:bg-emerald-50 transition-all shadow-xl hover:scale-105">
-              Book a Consultation
-            </button>
-          </motion.div>
+  <Link
+    href="/contact"
+    className="bg-white text-[#052824] px-8 py-3.5 rounded-full font-bold hover:bg-emerald-50 transition-all shadow-xl hover:scale-105 inline-block"
+  >
+    Book a Consultation
+  </Link>
+</motion.div>
         </motion.div>
 
         {/* GLOBE VIDEO */}
