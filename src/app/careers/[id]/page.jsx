@@ -16,7 +16,7 @@ export default function JobDetails({ params }) {
   if (!job) return notFound();
 
   return (
-    <div className="bg-white text-[#1d1d1f] font-sans selection:bg-emerald-100 overflow-hidden min-h-screen">
+    <div className="bg-white text-[#1d1d1f] font-sans selection:bg-blue-100 overflow-hidden min-h-screen">
       
       {/* ================= 1. THE HEADER (Pure Clarity) ================= */}
       <header className="pt-32 pb-16 px-6 border-b border-gray-100">
@@ -26,23 +26,23 @@ export default function JobDetails({ params }) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: appleEase }}
           >
-            <Link href="/careers" className="text-gray-400 text-xs font-bold uppercase tracking-widest hover:text-emerald-600 transition-colors mb-12 block">
+            <Link href="/careers" className="text-gray-400 text-xs font-bold uppercase tracking-widest hover:text-[#89cff1] transition-colors mb-12 block">
               ← All Positions
             </Link>
             
-            <h1 className="text-5xl md:text-7xl font-semibold tracking-tighter mb-8 text-[#052824]">
+            <h1 className="text-5xl md:text-7xl font-semibold tracking-tighter mb-8 text-[#020617]">
               {job.title}
             </h1>
 
             <div className="flex flex-wrap gap-6 text-sm font-medium text-gray-400">
               <span className="flex items-center gap-2">
-                <div className="w-1 h-1 bg-emerald-500 rounded-full" /> {job.location}
+                <div className="w-1.5 h-1.5 bg-[#89cff1] rounded-full" /> {job.location}
               </span>
               <span className="flex items-center gap-2">
-                <div className="w-1 h-1 bg-emerald-500 rounded-full" /> {job.type}
+                <div className="w-1.5 h-1.5 bg-[#89cff1] rounded-full" /> {job.type}
               </span>
               <span className="flex items-center gap-2">
-                <div className="w-1 h-1 bg-emerald-500 rounded-full" /> {job.salary}
+                <div className="w-1.5 h-1.5 bg-[#89cff1] rounded-full" /> {job.salary}
               </span>
             </div>
           </motion.div>
@@ -57,12 +57,12 @@ export default function JobDetails({ params }) {
             {/* Sidebar info (Sticky) */}
             <aside className="lg:col-span-4 lg:sticky lg:top-32 h-fit space-y-12">
               <div>
-                <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] text-emerald-600 mb-4">Department</h4>
-                <p className="text-lg font-medium text-[#052824]">{job.department || "Operations"}</p>
+                <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#3ea6d6] mb-4">Department</h4>
+                <p className="text-lg font-medium text-[#020617]">{job.department || "Operations"}</p>
               </div>
               <div>
-                <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] text-emerald-600 mb-4">Posted</h4>
-                <p className="text-lg font-medium text-[#052824]">March 2026</p>
+                <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#3ea6d6] mb-4">Posted</h4>
+                <p className="text-lg font-medium text-[#020617]">March 2026</p>
               </div>
               <div className="pt-8 border-t border-gray-100">
                  <p className="text-sm text-gray-400 leading-relaxed">
@@ -88,8 +88,8 @@ export default function JobDetails({ params }) {
                 <div className="space-y-8">
                   {job.responsibilities.map((item, i) => (
                     <div key={i} className="group flex gap-6 items-start">
-                      <span className="text-emerald-500 font-mono text-xs mt-1.5 opacity-50">0{i+1}</span>
-                      <p className="text-lg text-gray-600 font-light leading-relaxed">{item}</p>
+                      <span className="text-[#89cff1] font-mono text-xs mt-1.5 opacity-60">0{i+1}</span>
+                      <p className="text-lg text-gray-600 font-light leading-relaxed group-hover:text-gray-900 transition-colors">{item}</p>
                     </div>
                   ))}
                 </div>
@@ -101,7 +101,7 @@ export default function JobDetails({ params }) {
                 <div className="space-y-8">
                   {job.requirements.map((item, i) => (
                     <div key={i} className="flex gap-6 items-start">
-                      <span className="text-emerald-300 mt-1.5">•</span>
+                      <span className="text-[#89cff1] mt-1.5">•</span>
                       <p className="text-lg text-gray-600 font-light leading-relaxed">{item}</p>
                     </div>
                   ))}
@@ -113,7 +113,7 @@ export default function JobDetails({ params }) {
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Link 
                     href="mailto:careers@cyoumedia.com" 
-                    className="bg-[#052824] text-white px-10 py-5 rounded-full font-bold text-center hover:bg-emerald-900 transition-all active:scale-95"
+                    className="bg-[#020617] text-white px-10 py-5 rounded-full font-bold text-center hover:bg-[#02102e] hover:shadow-xl transition-all active:scale-95"
                   >
                     Apply for this position
                   </Link>

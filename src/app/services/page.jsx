@@ -16,7 +16,7 @@ const fadeInUp = {
   },
 };
 
-// Consistent Wavy Line Component
+// Consistent Wavy Line Component using #89cff1
 const WavyScrollLine = ({ targetRef }) => {
   const { scrollYProgress } = useScroll({
     target: targetRef,
@@ -34,7 +34,7 @@ const WavyScrollLine = ({ targetRef }) => {
       >
         <path
           d="M50,0 C90,25 10,75 50,100"
-          stroke="#10b981"
+          stroke="#89cff1"
           strokeOpacity="0.1"
           strokeWidth="1"
           fill="none"
@@ -42,17 +42,17 @@ const WavyScrollLine = ({ targetRef }) => {
         />
         <motion.path
           d="M50,0 C90,25 10,75 50,100"
-          stroke="url(#emeraldGradient)"
+          stroke="url(#blueGradient)"
           strokeWidth="3"
           fill="none"
           vectorEffect="non-scaling-stroke"
           style={{ pathLength }}
         />
         <defs>
-          <linearGradient id="emeraldGradient" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#34d399" />
-            <stop offset="50%" stopColor="#10b981" />
-            <stop offset="100%" stopColor="#059669" />
+          <linearGradient id="blueGradient" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#89cff1" />
+            <stop offset="50%" stopColor="#5fbbe6" />
+            <stop offset="100%" stopColor="#3ea6d6" />
           </linearGradient>
         </defs>
       </svg>
@@ -94,9 +94,9 @@ export default function ServicesPage() {
   ];
 
   return (
-    <div className="bg-[#052824] text-[#1d1d1f] font-sans selection:bg-emerald-400/30 overflow-hidden">
-      {/* ================= 1. HERO SECTION (Centered Heading) ================= */}
-      <section className="relative w-full min-h-[80vh] flex flex-col items-center justify-center text-center px-6 pt-32 pb-40 bg-[#052824] text-white">
+    <div className="bg-[#020617] text-[#1d1d1f] font-sans selection:bg-[#89cff1]/30 overflow-hidden">
+      {/* ================= 1. HERO SECTION ================= */}
+      <section className="relative w-full min-h-[80vh] flex flex-col items-center justify-center text-center px-6 pt-32 pb-40 bg-[#8ACFF2] text-white">
         <div className="absolute inset-0 z-0 opacity-20">
           <Image
             src="/bg.png"
@@ -114,7 +114,7 @@ export default function ServicesPage() {
           >
             <motion.span
               variants={fadeInUp}
-              className="text-emerald-400 text-xs font-bold uppercase tracking-[0.3em] mb-6 block"
+              className="text-[#89cff1] text-xs font-bold uppercase tracking-[0.3em] mb-6 block"
             >
               Our Expertise
             </motion.span>
@@ -123,7 +123,7 @@ export default function ServicesPage() {
               className="text-6xl md:text-8xl font-semibold tracking-tighter leading-[0.9] mb-8"
             >
               From Vision <br />{" "}
-              <span className="text-emerald-400 italic">to Global Impact.</span>
+              <span className="text-[#89cff1] italic">to Global Impact.</span>
             </motion.h1>
             <motion.p
               variants={fadeInUp}
@@ -136,7 +136,7 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* ================= 2. THE SERVICES LOOP (Rounded Edge Start) ================= */}
+      {/* ================= 2. THE SERVICES LOOP ================= */}
       <section
         ref={scrollRef}
         className="relative bg-white rounded-t-[3rem] lg:rounded-t-[5rem] -mt-12 z-20 overflow-hidden"
@@ -144,9 +144,9 @@ export default function ServicesPage() {
         {services.map((service, index) => (
           <div
             key={service.id}
-            className={`py-24 md:py-32 px-6 relative overflow-hidden ${service.dark ? "bg-[#052824] text-white" : "bg-white text-[#1d1d1f]"}`}
+            className={`py-24 md:py-32 px-6 relative overflow-hidden ${service.dark ? "bg-[#020617] text-white" : "bg-white text-[#1d1d1f]"}`}
           >
-            {/* The Wavy Line Threading through individual sections */}
+            {/* Wavy Line Threading */}
             {index !== services.length - 1 && (
               <WavyScrollLine targetRef={scrollRef} />
             )}
@@ -164,7 +164,7 @@ export default function ServicesPage() {
                   className={`lg:col-span-6 ${index % 2 !== 0 ? "lg:order-2" : ""}`}
                 >
                   <div className="flex items-center gap-4 mb-8">
-                    <span className="text-emerald-500 font-mono text-xl">
+                    <span className="text-[#89cff1] font-mono text-xl">
                       [{service.id}]
                     </span>
                     <div
@@ -185,7 +185,7 @@ export default function ServicesPage() {
                     {service.tags.map((tag) => (
                       <span
                         key={tag}
-                        className={`px-5 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest border ${service.dark ? "border-white/10 bg-white/5 text-emerald-400" : "border-emerald-100 bg-emerald-50/50 text-emerald-700"}`}
+                        className={`px-5 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest border ${service.dark ? "border-white/10 bg-white/5 text-[#89cff1]" : "border-blue-100 bg-blue-50/50 text-[#3ea6d6]"}`}
                       >
                         {tag}
                       </span>
@@ -206,25 +206,22 @@ export default function ServicesPage() {
                       service.dark ? "border-white/5" : "border-gray-100"
                     }`}
                   >
-                    {/* Ambient Glow for Dark Sections */}
+                    {/* Ambient Glow for Dark Sections using #89cff1 */}
                     {service.dark && (
-                      <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 blur-[80px] rounded-full z-10" />
+                      <div className="absolute top-0 right-0 w-64 h-64 bg-[#89cff1]/10 blur-[80px] rounded-full z-10" />
                     )}
 
-                    {/* ACTUAL IMAGE COMPONENT */}
                     <Image
-                      src={service.image} // This pulls the path from your services array
+                      src={service.image}
                       alt={service.title}
                       fill
                       className="object-cover transition-transform duration-[2s] group-hover:scale-105"
                       sizes="(max-width: 768px) 100vw, 50vw"
                     />
 
-                    {/* Subtle Glass Overlay (Optional: remove if you want the image completely clear) */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#052824]/20 to-transparent opacity-60 group-hover:opacity-20 transition-opacity duration-700" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#020617]/20 to-transparent opacity-60 group-hover:opacity-20 transition-opacity duration-700" />
 
-                    {/* Decorative Number ID - Now moved to a corner so it doesn't block the image */}
-                    <span className="absolute top-8 left-8 text-emerald-400/30 font-mono text-2xl font-bold z-20">
+                    <span className="absolute top-8 left-8 text-[#89cff1]/30 font-mono text-2xl font-bold z-20">
                       {service.id}
                     </span>
                   </div>
